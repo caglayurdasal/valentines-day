@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Valentine's Day!🧡</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #FF8C69, #FF6B6B, #6B5B95);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 80%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 1rem;
+            padding-bottom: 3rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            margin: 2rem auto;
+            max-width: 300px;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        h1 {
+            color: #6B5B95;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .pixel-emoji {
+            position: absolute;
+            pointer-events: none;
+            font-size: 24px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        .button {
+            background: #6B5B95;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+
+        #message {
+            margin-top: 1rem;
+            font-style: italic;
+            display: none;
+            padding: 1rem;
+            background: rgba(107, 91, 149, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Happy Valentine's Day! 🌻</h1>
+        <p>I love your goofy ass more than a basket of nutella biscuits and head rubs</p>
+        
+        <div class="polaroid">
+            <img src="/images/market.JPG" alt="Christmas Market Photo Together" />
+        </div>
+
+        <button class="button" onclick="showRandomMessage()">Hit me❤️‍🔥</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const messages = [
+            "Dont get deported on me girl, Id have to follow you to the konzentrationslager",
+            "Id cross a bridge with hot nails just to wiener that schnitzel",
+            "We got \"Harte Nuss\" at home babe",
+            "P**sy so squishiee",
+            "You breed too high bro",
+            "milk? milk",
+            "Deutch angus is a thing",
+            "I'm gonna be a maniac for booping your dogs' noses",
+            "döner? you mean DONASH?"
+        ];
+
+        function showRandomMessage() {
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+            message.textContent = messages[Math.floor(Math.random() * messages.length)];
+        }
+
+        const emojis = ['🐱', '🐕', '🐶', '🐈', '🍫', '🐱', '🐕', '🐈‍⬛'];
+        
+        function createPixelEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'pixel-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                emoji.remove();
+            }, 6000);
+        }
+
+        setInterval(createPixelEmoji, 1000);
+    </script>
+</body>
+</html>
