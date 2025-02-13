@@ -9,22 +9,14 @@
             margin: 0;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(45deg, #FF8C69, #FF6B6B, #6B5B95);
             font-family: Arial, sans-serif;
-            flex-direction: column;
             animation: gradientBG 15s ease infinite;
             background-size: 200% 200%;
         }
-        
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         .card {
             background: rgba(255, 255, 255, 0.9);
             padding: 2rem;
@@ -33,42 +25,20 @@
             text-align: center;
             width: 90%;
             max-width: 400px;
-            overflow: auto;
-            max-height: 90vh;
         }
-
         .polaroid {
             background: white;
             padding: 1rem;
-            padding-bottom: 3rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transform: rotate(-3deg);
             margin: 1rem auto;
             width: 90%;
             max-width: 250px;
+            cursor: pointer;
         }
-
         .polaroid img {
             width: 100%;
             height: auto;
-            display: block;
         }
-
-        .polaroid:nth-child(even) {
-            transform: rotate(3deg);
-        }
-
-        h1 {
-            color: #6B5B95;
-            font-size: 1.8rem;
-        }
-
-        p {
-            color: #333;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
         .button {
             background: #6B5B95;
             color: white;
@@ -76,77 +46,155 @@
             padding: 12px 24px;
             border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.3s;
             font-size: 1rem;
             margin-top: 1rem;
         }
-
-        .button:hover {
-            transform: scale(1.1);
-        }
-
-        #message {
-            margin-top: 1rem;
-            font-style: italic;
+        .quiz-container {
             display: none;
-            padding: 1rem;
-            background: rgba(107, 91, 149, 0.1);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
             border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
-
-        .pixel-emoji {
-            position: absolute;
-            pointer-events: none;
-            font-size: 18px;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-100px) rotate(180deg); }
-            100% { transform: translateY(0) rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .card { padding: 1.5rem; }
-            h1 { font-size: 1.5rem; }
-            p, .button { font-size: 0.9rem; }
+        .popup img {
+            max-width: 150px;
         }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Happy Valentine's Day! 🌻</h1>
-        <p>I love your goofy ass more than a basket of Nutella biscuits and head rubs.</p>
+        <p>I love your goofy ass more than a basket of Nutella biscuits and head rubs</p>
         
-        <div class="polaroid">
-            <img src="images/market.JPG" alt="Christmas Market Photo Together" />
+        <div class="polaroid" onclick="changePhoto()">
+            <img id="photo" src="images/market.JPG" alt="Photo Together" />
         </div>
 
-        <button class="button" onclick="showRandomMessage()">Hit me ❤️‍🔥</button>
+        <button class="button" onclick="showMessage()">Hit me ❤️‍🔥</button>
         <p id="message"></p>
+
+        <button class="button" onclick="startQuiz()">Take the Quiz</button>
+        
+        <div class="quiz-container" id="quiz-container">
+            <p id="quiz-question"></p>
+            <button class="button" onclick="checkAnswer(true)">Option 1</button>
+            <button class="button" onclick="checkAnswer(false)">Option 2</button>
+        </div>
+    </div>
+    
+    <div id="wrong-popup" class="popup">
+        <p>You disgust me everyday.</p>
+        <img src="images/pepe.jpg" alt="Crying Frog">
+        <button class="button" onclick="closePopup()">Close</button>
+    </div>
+    
+    <div id="final-popup" class="popup">
+        <p>You amaze me everyday.</p>
+        <img src="images/kuss.jpg" alt="Kusssss">
+        <button class="button" onclick="closeFinalPopup()">Close</button>
     </div>
 
     <script>
+        const photos = ["images/market.JPG", "images/brauhaus.jpg", "images/lud.jpg", "images/mirror.jpg", "images/motorworld.jpg", "images/train.jpg"];
+        let photoIndex = 0;
+
+        function changePhoto() {
+            photoIndex = (photoIndex + 1) % photos.length;
+            document.getElementById("photo").src = photos[photoIndex];
+        }
+        
+        const quizData = [
+            { question: "?", options: ["Knoppers", "Milka"], correct: 0 },
+            { question: "??", options: ["Brown", "Hazel"], correct: 1 },
+            { question: "???", options: ["Çağla", "Others"], correct: 0 }
+        ];
+        let currentQuestion = 0;
+
+        function startQuiz() {
+            document.getElementById("quiz-container").style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestion < quizData.length) {
+                document.getElementById("quiz-question").textContent = quizData[currentQuestion].question;
+                document.querySelectorAll(".quiz-container button")[0].textContent = quizData[currentQuestion].options[0];
+                document.querySelectorAll(".quiz-container button")[1].textContent = quizData[currentQuestion].options[1];
+            } else {
+                document.getElementById("final-popup").style.display = "block";
+            }
+        }
+
+        function checkAnswer(isFirstOption) {
+            if (isFirstOption === (quizData[currentQuestion].correct === 0)) {
+                showEmojis();
+                setTimeout(() => {
+                    currentQuestion++;
+                    loadQuestion();
+                }, 500);
+            } else {
+                document.getElementById("wrong-popup").style.display = "block";
+            }
+        }
+
+        function showEmojis() {
+            const emojis = ['🐱', '🐕', '🐶', '🐈'];
+            for (let i = 0; i < 10; i++) {
+                let emoji = document.createElement('div');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.position = 'absolute';
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.top = Math.random() * 100 + 'vh';
+                document.body.appendChild(emoji);
+                setTimeout(() => emoji.remove(), 250); // Shortened duration to half
+            }
+        }
+
+        function closePopup() {
+            document.getElementById("wrong-popup").style.display = "none";
+        }
+
+        function closeFinalPopup() {
+            document.getElementById("final-popup").style.display = "none";
+            document.getElementById("quiz-container").style.display = "none";
+            currentQuestion = 0; // Reset the quiz
+        }
+
         const messages = [
             "Don't get deported on me girl, I'd have to follow you to the konzentrationslager",
             "I'd cross a bridge with hot nails just to wiener that schnitzel",
+            "Döner? You mean DONASH?",
             "We got 'Harte Nuss' at home babe",
-            "P**sy so squishiee",
+            "Deutsch Angus",
+            "🐱 so squishiee",
             "You breed too high bro",
+            "Rough seggs is all I need",
             "Milk? Milk",
-            "Deutsch Angus is a thing",
-            "I'm gonna be a maniac for booping your dogs' noses",
-            "Döner? You mean DONASH?"
+            "My new clantag is OSMAN",
+            "Thats like my favourite thing in the world rn, making you happy:)",
+            "You are like the most sweet candy i could think of but you are even better than that"
         ];
 
-        function showRandomMessage() {
+        let messageIndex = 0; // Track the current message index
+
+        function showMessage() {
             const message = document.getElementById('message');
             message.style.display = 'block';
-            message.textContent = messages[Math.floor(Math.random() * messages.length)];
+            message.textContent = messages[messageIndex];
+    
+            // Move to the next message, looping back to the start if at the end
+            messageIndex = (messageIndex + 1) % messages.length;
         }
-
-
     </script>
 </body>
 </html>
