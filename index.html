@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Happy Valentine's Day!🧡</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day!</title>
     <style>
         body {
             margin: 0;
@@ -13,7 +15,7 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             animation: gradientBG 15s ease infinite;
-            background-size: 400% 400%;
+            background-size: 200% 200%;
         }
 
         @keyframes gradientBG {
@@ -28,9 +30,8 @@
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 80%;
-            position: relative;
-            z-index: 1;
+            width: 90%;
+            max-width: 400px;
         }
 
         .polaroid {
@@ -39,8 +40,9 @@
             padding-bottom: 3rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transform: rotate(-3deg);
-            margin: 2rem auto;
-            max-width: 300px;
+            margin: 1rem auto;
+            width: 90%;
+            max-width: 250px;
         }
 
         .polaroid img {
@@ -55,44 +57,25 @@
 
         h1 {
             color: #6B5B95;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
         }
 
         p {
             color: #333;
+            font-size: 1rem;
             line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .pixel-emoji {
-            position: absolute;
-            pointer-events: none;
-            font-size: 24px;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-100px) rotate(180deg);
-            }
-            100% {
-                transform: translateY(0) rotate(360deg);
-            }
         }
 
         .button {
             background: #6B5B95;
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 24px;
             border-radius: 25px;
             cursor: pointer;
             transition: transform 0.3s;
+            font-size: 1rem;
             margin-top: 1rem;
-            font-size: 1.1rem;
         }
 
         .button:hover {
@@ -107,32 +90,54 @@
             background: rgba(107, 91, 149, 0.1);
             border-radius: 10px;
         }
+
+        .pixel-emoji {
+            position: absolute;
+            pointer-events: none;
+            font-size: 18px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-100px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .card { padding: 1.5rem; }
+            h1 { font-size: 1.5rem; }
+            p, .button { font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Happy Valentine's Day! 🌻</h1>
-        <p>I love your goofy ass more than a basket of nutella biscuits and head rubs</p>
+        <p>I love your goofy ass more than a basket of Nutella biscuits and head rubs.</p>
         
         <div class="polaroid">
-            <img src="/images/market.JPG" alt="Christmas Market Photo Together" />
+            <img src="images/market.JPG" alt="Christmas Market Photo Together" />
+        </div>
+        <div class="polaroid">
+            <img src="images/train.jpg" alt="Train Photo Together" />
         </div>
 
-        <button class="button" onclick="showRandomMessage()">Hit me❤️‍🔥</button>
+        <button class="button" onclick="showRandomMessage()">Hit me ❤️‍🔥</button>
         <p id="message"></p>
     </div>
 
     <script>
         const messages = [
-            "Dont get deported on me girl, Id have to follow you to the konzentrationslager",
-            "Id cross a bridge with hot nails just to wiener that schnitzel",
-            "We got \"Harte Nuss\" at home babe",
+            "Don't get deported on me girl, I'd have to follow you to the konzentrationslager",
+            "I'd cross a bridge with hot nails just to wiener that schnitzel",
+            "We got 'Harte Nuss' at home babe",
             "P**sy so squishiee",
             "You breed too high bro",
-            "milk? milk",
-            "Deutch angus is a thing",
+            "Milk? Milk",
+            "Deutsch Angus is a thing",
             "I'm gonna be a maniac for booping your dogs' noses",
-            "döner? you mean DONASH?"
+            "Döner? You mean DONASH?"
         ];
 
         function showRandomMessage() {
@@ -147,7 +152,7 @@
             const emoji = document.createElement('div');
             emoji.className = 'pixel-emoji';
             emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 100 + 'vw';
+            emoji.style.left = Math.random() * 90 + 'vw';
             emoji.style.animationDuration = Math.random() * 3 + 3 + 's';
             document.body.appendChild(emoji);
 
