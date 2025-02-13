@@ -146,22 +146,7 @@
             message.textContent = messages[Math.floor(Math.random() * messages.length)];
         }
 
-        const emojis = ['🐱', '🐕', '🐶', '🐈', '🍫', '🐱', '🐕', '🐈‍⬛'];
-        
-        function createPixelEmoji() {
-            const emoji = document.createElement('div');
-            emoji.className = 'pixel-emoji';
-            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            emoji.style.left = Math.random() * 90 + 'vw';
-            emoji.style.animationDuration = Math.random() * 3 + 3 + 's';
-            document.body.appendChild(emoji);
 
-            setTimeout(() => {
-                emoji.remove();
-            }, 6000);
-        }
-
-        setInterval(createPixelEmoji, 1000);
     </script>
 </body>
 </html>
